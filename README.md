@@ -130,6 +130,7 @@ Difficulty ladder for the hybrid agent (sim2000): A0 38.5 → A5 33.4 → A10 30
    git clone https://github.com/gamerpuppy/sts_lightspeed && cd sts_lightspeed
    git checkout 7476a81
    git apply /path/to/sim_patch/sim_rl_hooks.patch
+   git apply /path/to/sim_patch/combat_rules.patch
    mkdir build312 && cd build312 && cmake .. && make -j4   # needs pybind11 submodule + python3.12
    ```
 
@@ -141,6 +142,9 @@ Difficulty ladder for the hybrid agent (sim2000): A0 38.5 → A5 33.4 → A10 30
    # train the non-combat policy from scratch (~10 min on a laptop, 12 cores)
    STS_SIM_COUNT=2000 PROG_TAG=my_run python agent/armG_train_parallel.py 8000 12 32
    ```
+
+Combat-rule patch details and native regression commands: [`sim_patch/README.md`](sim_patch/README.md).
+The published evaluation table predates this rules patch; its scores have not been remeasured.
 
 Python deps: `torch`, `tensorboard` (training only).
 

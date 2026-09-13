@@ -113,6 +113,7 @@ docs/                  过程、评估边界和训练经验
    git clone https://github.com/gamerpuppy/sts_lightspeed && cd sts_lightspeed
    git checkout 7476a81
    git apply /path/to/sim_patch/sim_rl_hooks.patch
+   git apply /path/to/sim_patch/combat_rules.patch
    mkdir build312 && cd build312 && cmake .. && make -j4   # 需要 pybind11 子模块 + python3.12
    ```
 
@@ -145,3 +146,5 @@ Python 依赖:`torch`、`tensorboard`(仅训练)。
 完整鸣谢见 [`docs/acknowledgements.md`](docs/acknowledgements.md)。
 
 中文过程记录(全系列):见 *Slow Take* 的博客系列。
+
+战士战斗规则补丁与原生回归命令见 [`sim_patch/README.md`](sim_patch/README.md)。已发布评估数据来自该规则补丁之前，尚未重新测量分数。

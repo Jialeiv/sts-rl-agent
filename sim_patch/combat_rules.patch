@@ -1,0 +1,83 @@
+--- a/include/combat/Actions.h
++++ b/include/combat/Actions.h
+@@ -156,5 +156,5 @@
+         static Action SuicideAction(int monsterIdx, bool triggerRelics);
+
+-        static Action PoisonLoseHpAction();
++        static Action PoisonLoseHpAction(int targetIdx, int amount);
+         static Action RemovePlayerDebuffs(); // Orange Pellets Relic
+
+--- a/src/combat/Actions.cpp
++++ b/src/combat/Actions.cpp
+@@ -928,6 +928,24 @@
+ }
+
+-Action Actions::PoisonLoseHpAction() {
+-    return sts::Action();
++Action Actions::PoisonLoseHpAction(int targetIdx, int amount) {
++    return {[targetIdx, amount](BattleContext &bc) {
++        if (bc.outcome != Outcome::UNDECIDED) {
++            return;
++        }
++        auto &monster = bc.monsters.arr[targetIdx];
++        if (!monster.isDeadOrEscaped() && monster.curHp > 0) {
++            int hpLoss = std::max(0, amount);
++            if (monster.hasStatus<MS::INTANGIBLE>()) {
++                hpLoss = std::min(hpLoss, 1);
++            }
++            // Poison is HP loss: preserve block and avoid normal-attack triggers.
++            // This helper applies Invincible and the existing HP-loss/death hooks.
++            if (hpLoss > 0) monster.damageUnblockedHelper(bc, hpLoss);
++        }
++        // Death can remove powers (e.g. the Awakened One's first phase).
++        if (monster.hasStatus<MS::POISON>()) {
++            monster.decrementStatus<MS::POISON>();
++        }
++    }};
+ }
+
+--- a/src/combat/BattleContext.cpp
++++ b/src/combat/BattleContext.cpp
+@@ -764,17 +764,6 @@
+         }
+
+-        // can't win check
+-        if (cards.cardsInHand + cards.discardPile.size() + cards.drawPile.size() == 0) {
+-            bool hasDamageWithoutCards = player.hasStatus<PS::OMEGA>() ||
+-                    player.hasStatus<PS::THORNS>() ||
+-                    player.bomb1 ||
+-                    player.bomb2 ||
+-                    player.bomb3;
+-
+-            if (!hasDamageWithoutCards && monsters.arr[0].id != MonsterId::TRANSIENT) {
+-                outcome = Outcome::PLAYER_LOSS;
+-                break;
+-            }
+-        }
++        // Empty card piles are not a loss: potions and delayed damage can
++        // still win. Let normal actions and turn resolution decide the outcome.
+
+         if (outcome != Outcome::UNDECIDED) {
+@@ -1074,5 +1063,5 @@
+
+         case CardId::IRON_WAVE: {
+-            addToBot( Actions::GainBlock(calculateCardBlock(calculateCardBlock(up  ? 7 : 5))) );
++            addToBot( Actions::GainBlock(calculateCardBlock(up ? 7 : 5)) );
+             addToBot( Actions::AttackEnemy(t, calculateCardDamage(c, t, up ? 7 : 5)) );
+             break;
+@@ -2267,5 +2256,5 @@
+
+         case Potion::BLOOD_POTION: {
+-            int healAmt = static_cast<int>((static_cast<float>(player.maxHp * (hasBark ? 20 : 40)) / 100.0f));
++            int healAmt = static_cast<int>((static_cast<float>(player.maxHp * (hasBark ? 40 : 20)) / 100.0f));
+             addToBot(Actions::HealPlayer(healAmt));
+             break;
+--- a/src/combat/Monster.cpp
++++ b/src/combat/Monster.cpp
+@@ -35,5 +35,5 @@
+
+     if (hasStatus<MS::POISON>() && !bc.monsters.areMonstersBasicallyDead()) {
+-        bc.addToBot(Actions::PoisonLoseHpAction());
++        bc.addToBot(Actions::PoisonLoseHpAction(idx, getStatus<MS::POISON>()));
+     }
+ }
