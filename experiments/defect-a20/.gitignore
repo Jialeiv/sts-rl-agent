@@ -1,0 +1,10 @@
+.DS_Store
+.venv/
+__pycache__/
+*.py[cod]
+simulator/build*/
+simulator/json/
+simulator/pybind11/
+runs/
+*.state.pt
+worker-weights.pt

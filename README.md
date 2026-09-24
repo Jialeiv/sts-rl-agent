@@ -2,6 +2,17 @@
 
 English | [中文](README.zh-CN.md)
 
+## Experimental tracks
+
+This repository now documents two separate tracks. Their numbers and weights are not interchangeable.
+
+| track | character / difficulty | status | location |
+|---|---|---|---|
+| Original published baseline | Ironclad A0 | completed 50-seed evaluation | root directories and `weights/` |
+| Defect extension | Defect A20 | training paused and incomplete; no retained Heart wins | [`experiments/defect-a20/`](experiments/defect-a20/) |
+
+The 77-minute Defect video uses a separate legacy `step15000` demo model. It shows one standard Act 3 floor-52 victory; it is not a V28/V3 run and not an Act 4 Heart victory. Defect weights are hosted in the [`defect-a20/` folder on Hugging Face](https://huggingface.co/Jialeiv/sts-rl-agent/tree/main/defect-a20).
+
 A hybrid agent for **Slay the Spire** (A0 Ironclad) built on the
 [sts_lightspeed](https://github.com/gamerpuppy/sts_lightspeed) simulator:
 
@@ -26,6 +37,8 @@ Same MCTS combat, same 50 held-out seeds, A0 Ironclad — only the non-combat "b
 
 The learned non-combat layer is worth **~11 floors** over the stock bot's heuristics —
 its biggest weakness was never combat, it was walking the map at random.
+
+These figures apply only to `weights/armG_model_G128x128_15k.pt` in the original A0 Ironclad track. On that fixed benchmark, increasing the combat search budget from 2,000 to 50,000 simulations coincided with a rise from 38.5 floors / 4% wins to 42.5 floors / 14% wins. That is an observed result for this old track, not a guarantee for the Defect A20 extension or the video run.
 
 ## Real Steam loop
 

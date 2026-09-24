@@ -1,0 +1,33 @@
+{
+  "character": "DEFECT",
+  "ascension": 20,
+  "architecture": [
+    128,
+    128
+  ],
+  "mcts_simulations": 8000,
+  "evaluation_seeds": "data/eval_seeds_50.txt",
+  "eval_every": 500,
+  "original_workers": 56,
+  "original_batch": 56,
+  "learning_rate": 0.001,
+  "seed": 42,
+  "last_confirmed_games": 22008,
+  "original_target_games": 30000,
+  "status": "paused_not_complete",
+  "temporary_tail_exact_step": null,
+  "legacy_checkpoints_are_weights_only": true,
+  "v28_key_bonus": [
+    0.0,
+    0.1,
+    0.3,
+    1.0
+  ],
+  "curriculum_key_bonus": [
+    0.0,
+    0.2,
+    0.5,
+    2.0
+  ],
+  "curriculum_floor_weight": 0.03
+}
