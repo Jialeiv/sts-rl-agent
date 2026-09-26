@@ -11,7 +11,7 @@
 | 原公开基线 | A0 铁甲战士 | 已完成 50-seed 评测 | 根目录与 `weights/` |
 | 新扩展 | A20 故障机器人 | 训练暂停且未完成；留存评测没有碎心成功 | [`experiments/defect-a20/`](experiments/defect-a20/) |
 
-77 分钟故障机器人录像使用另一份旧 `step15000` 演示模型，只展示一局第三幕第 52 层普通通关；它不是 V28/V3 的录像，也不是第四幕碎心。故障机器人权重放在 Hugging Face 的 [`defect-a20/` 目录](https://huggingface.co/Jialeiv/sts-rl-agent/tree/main/defect-a20)。
+归档的 77 分 40 秒故障机器人录像使用另一份旧 `step15000` 演示模型；另已制作约 46 分钟的剪辑版。它只展示一局第三幕第 52 层普通通关，不是 V28/V3 的录像，也不是第四幕碎心。对应的故障机器人权重归于 Hugging Face 模型项目中的 [`defect-a20/` 目录](https://huggingface.co/Jialeiv/sts-rl-agent/tree/main/defect-a20)。
 
 一个跑在 [sts_lightspeed](https://github.com/gamerpuppy/sts_lightspeed) 模拟器上的《杀戮尖塔》混合 agent(A0 铁甲战士):
 

@@ -11,7 +11,7 @@ This repository now documents two separate tracks. Their numbers and weights are
 | Original published baseline | Ironclad A0 | completed 50-seed evaluation | root directories and `weights/` |
 | Defect extension | Defect A20 | training paused and incomplete; no retained Heart wins | [`experiments/defect-a20/`](experiments/defect-a20/) |
 
-The 77-minute Defect video uses a separate legacy `step15000` demo model. It shows one standard Act 3 floor-52 victory; it is not a V28/V3 run and not an Act 4 Heart victory. Defect weights are hosted in the [`defect-a20/` folder on Hugging Face](https://huggingface.co/Jialeiv/sts-rl-agent/tree/main/defect-a20).
+The archived 77:40 Defect recording uses a separate legacy `step15000` demo model; a 46-minute edited version was also produced. It shows one standard Act 3 floor-52 victory; it is not a V28/V3 run and not an Act 4 Heart victory. The corresponding Defect checkpoints belong in the [`defect-a20/` folder of the Hugging Face model repository](https://huggingface.co/Jialeiv/sts-rl-agent/tree/main/defect-a20).
 
 A hybrid agent for **Slay the Spire** (A0 Ironclad) built on the
 [sts_lightspeed](https://github.com/gamerpuppy/sts_lightspeed) simulator:
